@@ -7,6 +7,7 @@ import Register from "./components/Register";
 import Create from "./components/Create";
 import EditPost from "./components/Editpost";
 import SinglePost from "./components/Singlepost";
+import Delete from "./components/Delete";
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -48,6 +49,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <EditPost />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/delete/:id"
+            element={
+              <PrivateRoute>
+                <Delete />
               </PrivateRoute>
             }
           />

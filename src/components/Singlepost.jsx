@@ -20,21 +20,7 @@ const SinglePost = () => {
     }
   };
 
-  const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this post?")) return;
-
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) return;
-
-      await axios.delete(`https://task-ba-khk7.onrender.com/api/posts/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      navigate("/");
-    } catch (err) {
-      setError(err.response?.data?.error || "Delete failed.");
-    }
-  };
+ 
 
   const currentUserId = localStorage.getItem("userId");
   const isAuthenticated = !!localStorage.getItem("token");
@@ -73,12 +59,12 @@ const SinglePost = () => {
         >
           Edit
         </Link>
-        <button
-          onClick={handleDelete}
+        <Link
+           to={`/delete/${post._id}`}
           className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
         >
           Delete
-        </button>
+        </Link>
       </div>
 
       {error && <p className="mt-4 text-red-500">{error}</p>}
