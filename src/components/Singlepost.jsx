@@ -11,7 +11,9 @@ const SinglePost = () => {
 
   const fetchPost = async () => {
     try {
-      const res = await axios.get(`https://task-ba-khk7.onrender.com/api/posts/${id}`);
+      const res = await axios.get(
+        `https://task-ba-khk7.onrender.com/api/posts/${id}`
+      );
       setPost(res.data);
     } catch (err) {
       setError("Failed to load post.");
@@ -64,22 +66,20 @@ const SinglePost = () => {
         />
       )}
 
-      {isAuthenticated && isAuthor && (
-        <div className="flex gap-4">
-          <Link
-            to={`/edit/${post._id}`}
-            className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-          >
-            Edit
-          </Link>
-          <button
-            onClick={handleDelete}
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-          >
-            Delete
-          </button>
-        </div>
-      )}
+      <div className="flex gap-4">
+        <Link
+          to={`/edit/${post._id}`}
+          className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+        >
+          Edit
+        </Link>
+        <button
+          onClick={handleDelete}
+          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+        >
+          Delete
+        </button>
+      </div>
 
       {error && <p className="mt-4 text-red-500">{error}</p>}
     </div>
