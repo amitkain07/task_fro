@@ -15,15 +15,22 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post("https://task-ba-khk7.onrender.com/api/login", formData);
-      setMessage("Login successful!");
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userId", res.data.user._id);
-      
-      navigate("/"); //  Redirect to home page
+      console.log("Response from login:", res.data); // ✅ DEBUG
+  
+      if (res.data.token && res.data.user?._id) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userId", res.data.user._id);
+        setMessage("Login successful!");
+        navigate("/");
+      } else {
+        throw new Error("Invalid response format");
+      }
     } catch (err) {
+      console.error("Login error:", err); // ✅ DEBUG
       setMessage(err.response?.data?.error || "Something went wrong");
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
