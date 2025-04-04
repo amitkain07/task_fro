@@ -64,7 +64,7 @@ const SinglePost = () => {
 
       {isAuthenticated && (
         <div className="flex gap-4">
-          {post.author === currentUserId && (
+          { (
             <>
               <Link
                 to={`/edit/${post._id}`}
