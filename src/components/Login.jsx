@@ -15,9 +15,14 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post("https://task-ba-khk7.onrender.com/api/login", formData);
-      console.log("Response from login:", res.data); // ✅ DEBUG
+      console.log("Login response:", res); // 👈 This shows the full structure
   
-      if (res.data.token && res.data.user?._id) {
+      // Optional: log specific fields to debug
+      console.log("Token:", res.data.token);
+      console.log("User:", res.data.user);
+  
+      // Check if response includes token and user ID
+      if (res.data.token && res.data.user && res.data.user._id) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.user._id);
         setMessage("Login successful!");
@@ -26,10 +31,11 @@ const Login = () => {
         throw new Error("Invalid response format");
       }
     } catch (err) {
-      console.error("Login error:", err); // ✅ DEBUG
+      console.error("Login error:", err);
       setMessage(err.response?.data?.error || "Something went wrong");
     }
   };
+  
   
 
   return (
