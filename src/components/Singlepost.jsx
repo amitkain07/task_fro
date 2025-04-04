@@ -23,6 +23,8 @@ const SinglePost = () => {
 
     try {
       const token = localStorage.getItem("token");
+      if (!token) return;
+
       await axios.delete(`https://task-ba-khk7.onrender.com/api/posts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -33,6 +35,7 @@ const SinglePost = () => {
   };
 
   const currentUserId = localStorage.getItem("userId");
+  const isAuthenticated = !!localStorage.getItem("token");
 
   useEffect(() => {
     fetchPost();
@@ -59,20 +62,26 @@ const SinglePost = () => {
         />
       )}
 
-      <div className="flex gap-4">
-        <Link
-          to={`/edit/${post._id}`}
-          className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-        >
-          Edit
-        </Link>
-        <button
-          onClick={handleDelete}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-        >
-          Delete
-        </button>
-      </div>
+      {isAuthenticated && (
+        <div className="flex gap-4">
+          {post.author === currentUserId && (
+            <>
+              <Link
+                to={`/edit/${post._id}`}
+                className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+              >
+                Edit
+              </Link>
+              <button
+                onClick={handleDelete}
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </>
+          )}
+        </div>
+      )}
 
       {error && <p className="mt-4 text-red-500">{error}</p>}
     </div>
