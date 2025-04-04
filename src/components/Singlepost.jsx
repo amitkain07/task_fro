@@ -49,6 +49,8 @@ const SinglePost = () => {
     );
   }
 
+  const isAuthor = post.author === currentUserId;
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
@@ -62,24 +64,20 @@ const SinglePost = () => {
         />
       )}
 
-      {isAuthenticated && (
+      {isAuthenticated && isAuthor && (
         <div className="flex gap-4">
-          { (
-            <>
-              <Link
-                to={`/edit/${post._id}`}
-                className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-              >
-                Edit
-              </Link>
-              <button
-                onClick={handleDelete}
-                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-              >
-                Delete
-              </button>
-            </>
-          )}
+          <Link
+            to={`/edit/${post._id}`}
+            className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+          >
+            Edit
+          </Link>
+          <button
+            onClick={handleDelete}
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+          >
+            Delete
+          </button>
         </div>
       )}
 

@@ -17,6 +17,7 @@ const Login = () => {
       const res = await axios.post("https://task-ba-khk7.onrender.com/api/login", formData);
       setMessage("Login successful!");
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userId", res.data.user._id);
       
       navigate("/"); //  Redirect to home page
     } catch (err) {
